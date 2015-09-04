@@ -26,7 +26,7 @@ module AppleManifestRails
     def check_install
       @udid = params[:udid]
       @checker = AppleManifestRails::Install::Checker.new
-      set_itms_url if @checker.installable?(@udid)
+      set_itms_url #if @checker.installable?(@udid)    # Remove for Enterprise
     end
 
     # Install (Send IPA)

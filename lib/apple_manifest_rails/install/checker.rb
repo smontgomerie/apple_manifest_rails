@@ -12,7 +12,8 @@ module AppleManifestRails
       end
 
       def installable? udid
-        self.mobileprovision.include? udid
+        true      # Remove for Enterprise
+        # self.mobileprovision.include? udid
       end
       
       private

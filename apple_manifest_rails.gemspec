@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.2'
 
-  s.add_dependency "rails", ">= 3.2"
+  s.add_dependency "rails", "> 3.2"
   s.add_dependency 'haml-rails', '>= 0.3.5'
   s.add_dependency 'rubyzip', '~> 0.9.9'
 end
