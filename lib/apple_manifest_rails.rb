@@ -5,6 +5,7 @@ require "apple_manifest_rails/enroll/response_parser"
 require "apple_manifest_rails/install/checker"
 require "apple_manifest_rails/install/ipa"
 require "apple_manifest_rails/template_dir"
+require "apple_manifest_rails/version"
 
 module AppleManifestRails
   def self.configure
