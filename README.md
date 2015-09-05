@@ -14,8 +14,6 @@ rails_application/
   config/
   ...
   mobile_build/              <------------- config.template_dir
-    builds/
-      app.ipa                <------------- config.ipa_path
     manifest.plist
     Profile.mobileconfig
 ```
@@ -36,7 +34,9 @@ Optionally, you can override these defaults by setting up an initializer in your
 AppleManifestRails.configure do |config|
   config.page_title = "Who needs testflight? I've got apple_manifest_rails!"
   config.template_dir = Rails.root.join('apple_manifest_rails', 'templates')
-  config.ipa_path = Rails.root.join('apple_manifest_rails', 'binaries', 'my_custom.ipa')
+
+  # The DB Table that contains the model for the iPhone apps.
+  config.model = IphoneApp
 end
 ```
 
@@ -58,7 +58,36 @@ Example::Application.routes.draw do
 end
 ```
 
-Step 4: Start your `rails server` and navigate iOS Safari to `/enroll` or `/install` (aliased)
+Step 5: Create the model. TODO, need to supply a generator
+
+```ruby
+class IphoneApp < ActiveRecord::Base
+  has_attached_file :file  # Paperclip
+
+  def file_path     # Required method by apple_manifest_rails
+    file.path
+  end
+end
+```
+
+Migration:
+
+```ruby
+class CreateIphoneApps < ActiveRecord::Migration
+  def change
+    create_table :iphone_apps do |t|
+      t.string :version
+      t.string :uuid
+      t.attachment :file
+      t.string :name
+
+      t.timestamps null: false
+    end
+  end
+end
+```
+
+Step 5: Start your `rails server` and navigate iOS Safari to `/enroll/:uuid` or `/install/:uuid` (aliased)
 
 ## Contributing
 
