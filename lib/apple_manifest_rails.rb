@@ -32,14 +32,6 @@ module AppleManifestRails
     template_dir.join name
   end
 
-  def self.ipa_path
-    @ipa_path ||= template_dir.join('builds', 'app.ipa')
-  end
-
-  def self.ipa_path= str
-    @ipa_path = str
-    end
-
   def self.model= str
     @model = str
   end

@@ -58,7 +58,7 @@ module AppleManifestRails
 
     private
     def ipa_path
-      AppleManifestRails.ipa_path
+      @app.file_path
     end
 
     def set_itms_url
