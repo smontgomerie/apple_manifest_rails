@@ -5,11 +5,10 @@
     #content
       %ol.instructions
         %li Tap Start to begin process
-        %li Press "Install" to allow access to device UDID
         %li If the app can be installed on your device, it will be installed
       %br
       .container{style:'padding:20px;font-size:24pt;text-align:center;font-family:helvetica'}
-        -#Remove for Enterprise
+        -#Removed for Enterprise
         -#%a.btn{href:"/enroll/mobileconfig"} Start
         %a.btn{href:"/enroll/#{@app.uuid}/install"} Start
 
