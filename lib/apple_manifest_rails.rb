@@ -38,5 +38,13 @@ module AppleManifestRails
 
   def self.ipa_path= str
     @ipa_path = str
+    end
+
+  def self.model= str
+    @model = str
+  end
+
+  def self.model
+    @model
   end
 end

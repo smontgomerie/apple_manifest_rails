@@ -1,7 +1,7 @@
 - if @ios_device
   #device
     #header
-      %h1#title Enroll Device / Install App
+      %h1#title Enroll Device / Install #{@app.name} #{@app.version}
     #content
       %ol.instructions
         %li Tap Start to begin process
@@ -11,7 +11,7 @@
       .container{style:'padding:20px;font-size:24pt;text-align:center;font-family:helvetica'}
         -#Remove for Enterprise
         -#%a.btn{href:"/enroll/mobileconfig"} Start
-        %a.btn{href:"/enroll/install"} Start
+        %a.btn{href:"/enroll/#{@app.uuid}/install"} Start
 
 - else 
   %p{style:'color:black;text-align:center'} Please return to this page with your iOS device

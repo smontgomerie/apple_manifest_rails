@@ -2,6 +2,15 @@ require_dependency "apple_manifest_rails/application_controller"
 
 module AppleManifestRails
   class ManifestController < ApplicationController
+
+    before_action :get_app
+
+    private
+    def get_app
+      @app = AppleManifestRails::model.find_by_uuid(params[:id])
+    end
+
+    public
     # Enroll (Capture UDID)
     def enroll
       @ios_device = request.user_agent =~ /(Mobile\/.+Safari)/
@@ -25,8 +34,8 @@ module AppleManifestRails
     # Check install
     def check_install
       @udid = params[:udid]
-      @checker = AppleManifestRails::Install::Checker.new
-      set_itms_url #if @checker.installable?(@udid)    # Remove for Enterprise
+      @checker = AppleManifestRails::Install::Checker.new(@app)
+      set_itms_url if @checker.installable?(@udid)
     end
 
     # Install (Send IPA)
@@ -36,7 +45,9 @@ module AppleManifestRails
     end
 
     def manifest
-      install = AppleManifestRails::Install::IPA.new(request)
+
+      # TODO add ID and link to file
+      install = AppleManifestRails::Install::IPA.new(request, @app)
       install.write_manifest
       send_file install.manifest_path
     end
@@ -51,7 +62,7 @@ module AppleManifestRails
     end
 
     def set_itms_url
-      @itms_url = AppleManifestRails::Install::IPA.new(request).itms_uri
+      @itms_url = AppleManifestRails::Install::IPA.new(request, @app).itms_uri
     end
   end
 end

@@ -6,14 +6,15 @@ module AppleManifestRails
     class Checker
       attr_accessor :mobileprovision
 
-      def initialize
-        ipa_path = AppleManifestRails.ipa_path
+      def initialize(app)
+        ipa_path = app.file_path     # TODO this ties the app to paperclip
         extract_mobileprovision_from ipa_path
       end
 
       def installable? udid
-        true      # Remove for Enterprise
-        # self.mobileprovision.include? udid
+        return true if self.mobileprovision.include?("ProvisionsAllDevices") # is it enterprise?
+
+        self.mobileprovision.include?(udid) # Does it include the UDID ?
       end
       
       private
